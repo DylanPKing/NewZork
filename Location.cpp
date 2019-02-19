@@ -17,8 +17,8 @@ QString Location::getItemList()
     if (items.size() > 0)
     {
         QString out = "The items here are:\n";
-        for (QVector<Item>::iterator i = *items.begin(); i != *items.end(); ++i)
-            out += i->nameRef + "\n";
+        for (int i = 0; i < items.size(); ++i)
+            out += items.at(i)->getName() + "\n";
         return out;
     }
     return "There's nothing in here...";

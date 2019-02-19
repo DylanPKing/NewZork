@@ -4,6 +4,7 @@
 #include "Character.h"
 #include "Command.h"
 #include "Item.h"
+#include "Weapon.h"
 #include "Location.h"
 
 class ZorkCore

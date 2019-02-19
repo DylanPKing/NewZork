@@ -150,7 +150,7 @@ void Character::equipItem(QString equipArea, Item *itemToEquip)
 void Character::replaceActiveItem(QString equipArea, Item *itemToEquipPtr)
 {
     QTextStream out(stdout);
-    out << activeItems[equipArea]->nameRef << "is already equipped here." << endl
+    out << activeItems[equipArea]->getName() << "is already equipped here." << endl
         << "Do you want to replace it?\t[Y/n]" << endl;
     bool validInput = false;
     QTextStream in(stdin);
@@ -210,6 +210,6 @@ QString Character::showInventory()
 {
     QString out = "";
     for (int i = 0; i < inventory.size(); ++i)
-        out += inventory[i]->nameRef + ((i % 6 == 0) ? "\n" : "");
+        out += inventory[i]->getName() + ((i % 6 == 0) ? "\n" : "");
     return out;
 }

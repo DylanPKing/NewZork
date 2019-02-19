@@ -20,7 +20,8 @@ SOURCES += \
     Command.cpp \
     Item.cpp \
     Location.cpp \
-    main.cpp
+    main.cpp \
+    Weapon.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -38,4 +39,5 @@ HEADERS += \
     ZorkCore.h \
     Command.h \
     Item.h \
-    Location.h
+    Location.h \
+    Weapon.h

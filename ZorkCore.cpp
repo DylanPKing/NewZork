@@ -24,7 +24,7 @@ void ZorkCore::teleport()
     while (!valid)
     {
         Location* newLoc = locations.at(rand() % locations.size());
-        if (currentLoc->nameRef.compare(newLoc->nameRef) != 0)
+        if (currentLoc->getName().compare(newLoc->getName()) != 0)
         {
             QTextStream out(stdout);
             valid = true;
@@ -50,7 +50,7 @@ bool ZorkCore::processCommand(Command in)
     {
         Location *here = currentLoc;
         currentLoc = currentLoc->getExit(in.secondWordRef);
-        if (here->nameRef.compare(currentLoc->nameRef) == 0)
+        if (here->getName().compare(currentLoc->getName()) == 0)
             out << "You cant go that direction.." << endl;
         else
             out << currentLoc->getDescription() << endl;
@@ -105,6 +105,8 @@ void ZorkCore::createLocations()
     locations.push_back(iPtr);
     locations.push_back(jPtr);
 
+    ePtr->addItem(new Weapon("Sword", "A simple sword.", 15, 20, 1));
+
     currentLoc = ePtr;
 }
 
@@ -115,7 +117,7 @@ void ZorkCore::printWelcome()
 {
     QTextStream out(stdout);
     out << "Welcome to the saga of... something." << endl
-        << "Current location:\t" << currentLoc->nameRef << endl;
+        << "Current location:\t" << currentLoc->getDescription() << endl;
 }
 
 /**

@@ -19,7 +19,7 @@ private:
 
 public:
     Location(QString);
-    const QString &nameRef = name;
+    inline QString getName() { return name; }
     QString getItemList();
     QString getDescription();
     Location* getExit(QString);
