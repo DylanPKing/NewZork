@@ -20,7 +20,8 @@ public:
 private:
     Ui::MainWindow *ui;
 
-    void createDirButtons();
+    void createButtons();
+    void createTextField();
 
     QVector<QPushButton*> directions;
     QPushButton *teleport;

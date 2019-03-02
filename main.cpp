@@ -1,8 +1,19 @@
+#include <QApplication>
+
+#include "mainwindow.h"
+
 #include "ZorkCore.h"
 
-int main()
+int main(int argc, char *argv[])
 {
-    ZorkCore game;
-    game.play();
+    QApplication a(argc, argv);
+    MainWindow w;
+
+    //ZorkCore game;
+    //game.play();
+
+    w.show();
+
+    return a.exec();
 
 }

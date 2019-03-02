@@ -7,7 +7,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    createDirButtons();
+    createButtons();
+    createTextField();
 }
 
 MainWindow::~MainWindow()
@@ -19,13 +20,23 @@ MainWindow::~MainWindow()
     delete teleport;
 }
 
-void MainWindow::createDirButtons()
+void MainWindow::createButtons()
 {
-    const QString dirs[4] = {"North", "East", "South", "West"};
-    for (int i = 0; i < 4; ++i)
+    const QString dirs[] = {"North", "East", "South", "West", "Teleport"};
+    for (int i = 0; i < 5; ++i)
     {
-        directions[i] = new QPushButton(this);
-        directions[i]->setText((*dirs)[i]);
-        directions[i]->setGeometry(QRect(QPoint(0, 0), QSize(100, 50)));
+        directions.push_back(new QPushButton(this));
+        directions[i]->setText(dirs[i]);
     }
+    directions[0]->setGeometry(QRect(QPoint(100, 400), QSize(50, 30)));
+    directions[1]->setGeometry(QRect(QPoint(150, 400), QSize(50, 60)));
+    directions[2]->setGeometry(QRect(QPoint(100, 430), QSize(50, 30)));
+    directions[3]->setGeometry(QRect(QPoint(50, 400), QSize(50, 60)));
+    directions[4]->setGeometry(QRect(QPoint(200, 400), QSize(100, 60)));
+}
+
+void MainWindow::createTextField()
+{
+    out = new QPlainTextEdit();
+
 }
