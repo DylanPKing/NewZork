@@ -1,4 +1,6 @@
-QT -= gui
+QT += core gui
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11 console
 CONFIG -= app_bundle
@@ -21,7 +23,8 @@ SOURCES += \
     Item.cpp \
     Location.cpp \
     main.cpp \
-    Weapon.cpp
+    Weapon.cpp \
+    mainwindow.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -40,4 +43,8 @@ HEADERS += \
     Command.h \
     Item.h \
     Location.h \
-    Weapon.h
+    Weapon.h \
+    mainwindow.h
+
+FORMS += \
+    mainwindow.ui
