@@ -16,8 +16,8 @@ private:
 public:
     Command(QString, QString);
     QString listValidCommands();
-    const QString commandWordRef = commandWord;
-    const QString secondWordRef = secondWord;
+    const QString &commandWordRef = commandWord;
+    const QString &secondWordRef = secondWord;
     bool isValidCommand();
     bool hasSecondWord();
 };

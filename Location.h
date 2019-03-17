@@ -23,6 +23,7 @@ public:
     QString getItemList();
     QString getDescription();
     Location* getExit(QString);
+    QString getExits();
     void setExits(Location*, Location*, Location*, Location*);
     void addItem(Item*);
     void removeItem(Item*);

@@ -17,11 +17,11 @@ QVector <QString> Character::validEquipAreas;
  * @param name
  *
  */
-Character::Character(QString name)
-    : name(name)
-    , hp(100.0)
-    , weightLimit(100)
-    , currentWeight(0)
+Character::Character(QString name) :
+    name(name),
+    hp(100.0),
+    weightLimit(100),
+    currentWeight(0)
 {
     isThereEquipAreas();
 }
@@ -33,11 +33,11 @@ Character::Character(QString name)
  * @param name
  * @param hp
  */
-Character::Character(QString name, float hp)
-    : name(name)
-    , hp(hp)
-    , weightLimit(100)
-    , currentWeight(0)
+Character::Character(QString name, float hp) :
+    name(name),
+    hp(hp),
+    weightLimit(100),
+    currentWeight(0)
 {
     isThereEquipAreas();
 }
@@ -51,11 +51,11 @@ Character::Character(QString name, float hp)
  * @param hp
  * @param weightLimit
  */
-Character::Character(QString name, float hp, int weightLimit)
-    : name(name)
-    , hp(hp)
-    , weightLimit(weightLimit)
-    , currentWeight(0)
+Character::Character(QString name, float hp, int weightLimit) :
+    name(name),
+    hp(hp),
+    weightLimit(weightLimit),
+    currentWeight(0)
 
 {
     isThereEquipAreas();
@@ -184,7 +184,7 @@ bool Character::exceedWeightLimit(int extraWeight)
  */
 void Character::isThereEquipAreas()
 {
-    if (validEquipAreas.size() == 0)
+    if (validEquipAreas.empty())
         loadEquipAreas();
 }
 
@@ -211,5 +211,13 @@ QString Character::showInventory()
     QString out = "";
     for (int i = 0; i < inventory.size(); ++i)
         out += inventory[i]->getName() + ((i % 6 == 0) ? "\n" : "");
+    return out;
+}
+
+QString Character::showStatus()
+{
+    QString out = "Name:\t" + nameRef + "\n" + "Health:\t" + QString::number(hpRef) + "\n"
+                + "Current carrying weight:\t" + QString::number(currentWeightRef) + "\n"
+                + "Carrying weight limit:\t" + QString::number(weightLimitRef);
     return out;
 }

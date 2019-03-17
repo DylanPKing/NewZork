@@ -25,6 +25,8 @@ public:
     Character(QString);
     Character(QString, float);
     Character(QString, float, int);
+    const QString nameRef = name;
+    const float &hpRef = hp;
     const int &weightLimitRef = weightLimit;
     const int &currentWeightRef = currentWeight;
     int updateCurrentWeight(int);
@@ -35,6 +37,7 @@ public:
     void equipItem(QString, Item*);
     bool exceedWeightLimit(int);
     QString showInventory();
+    QString showStatus();
 };
 
 #endif // CHARACTER_H

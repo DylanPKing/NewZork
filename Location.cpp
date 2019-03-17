@@ -31,7 +31,7 @@ QString Location::getItemList()
 QString Location::getDescription()
 {
     QString out = "Name:\t";
-    out += name + "\nItems:\n" + getItemList();
+    out += name + "\nExits:\t" + getExits() + "\nItems:\n" + getItemList();
     return out;
 }
 
@@ -42,12 +42,20 @@ QString Location::getDescription()
  */
 Location* Location::getExit(QString direction)
 {
+    Location *loc = this;
     QChar dir = direction.front().toLower();
     if (exits[dir] != nullptr)
-        return exits[dir];
-    return this;
+        loc = exits[dir];
+    return loc;
 }
 
+QString Location::getExits()
+{
+    QString out = "";
+    for (QMap<QChar, Location*>::iterator i = exits.begin(); i != exits.end(); ++i)
+        out += (*i)->getName() + (i != exits.end() - 1 ? ", " : "");
+    return out;
+}
 /**
  * @brief Location::setExits
  * @param nPtr

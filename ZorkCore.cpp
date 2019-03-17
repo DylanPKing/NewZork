@@ -1,17 +1,22 @@
-#include <QTextStream>
-
-#include <time.h>
-
 #include "ZorkCore.h"
+#include "ui_ZorkCore.h"
+#include "mainwindow.h"
 
-/**
- * @brief ZorkCore::ZorkCore
- */
-ZorkCore::ZorkCore()
-    : playerCharacter("Player")
+ZorkCore::ZorkCore(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::ZorkCore),
+    playerCharacter("Player")
 {
-    createLocations();
+    ui->setupUi(this);
     srand(time(nullptr));
+    createLocations();
+    showMap();
+    ui->charStats->setText(playerCharacter.showStatus());
+}
+
+ZorkCore::~ZorkCore()
+{
+    delete ui;
 }
 
 /**
@@ -26,10 +31,9 @@ void ZorkCore::teleport()
         Location* newLoc = locations.at(rand() % locations.size());
         if (currentLoc->getName().compare(newLoc->getName()) != 0)
         {
-            QTextStream out(stdout);
             valid = true;
             currentLoc = newLoc;
-            out << currentLoc->getDescription() << endl;
+            ui->out->append(currentLoc->getDescription() + "\n");
         }
     }
 }
@@ -41,23 +45,22 @@ void ZorkCore::teleport()
  */
 bool ZorkCore::processCommand(Command in)
 {
-    QTextStream out(stdout);
     if (!in.isValidCommand())
-        out << "The fuck are you trying to do?" << endl;
+        ui->out->append("The hell are you trying to do?\n");
     else if (in.commandWordRef.compare("info") == 0 && !in.hasSecondWord())
-        out << "Valid commands are:\n" << in.listValidCommands() << endl;
+        ui->out->append("Valid commands are:\n" + in.listValidCommands() + "\n");
     else if (in.commandWordRef.compare("go") == 0 && in.hasSecondWord())
     {
-        Location *here = currentLoc;
+        QString here = currentLoc->getName();
         currentLoc = currentLoc->getExit(in.secondWordRef);
-        if (here->getName().compare(currentLoc->getName()) == 0)
-            out << "You cant go that direction.." << endl;
+        if (here.compare(currentLoc->getName()) == 0)
+            ui->out->append("You cant go that direction..\n");
         else
-            out << currentLoc->getDescription() << endl;
+            ui->out->append(currentLoc->getDescription() + "\n");
     }
     else if (in.commandWordRef.compare("teleport") == 0 && !in.hasSecondWord())
     {
-        out << "You are teleporting to a new room..." << endl;
+        ui->out->append("You are teleporting to a new room...\n");
         teleport();
     }
     else if (in.commandWordRef.compare("quit") == 0 && !in.hasSecondWord())
@@ -115,28 +118,51 @@ void ZorkCore::createLocations()
  */
 void ZorkCore::printWelcome()
 {
-    QTextStream out(stdout);
-    out << "Welcome to the saga of... something." << endl
-        << "Current location:\t" << currentLoc->getDescription() << endl;
+    ui->out->append("Welcome to the saga of... something.\nCurrent location:\n" + currentLoc->getDescription() + "\n");
 }
 
-/**
- * @brief ZorkCore::play
- */
-void ZorkCore::play()
+void ZorkCore::showMap()
 {
-    bool finished = false;
-    printWelcome();
-    while (!finished)
-    {
-        QTextStream out(stdout);
-        out << "Enter command:" << endl;
-        QTextStream in(stdin);
-        QStringList inStr = in.readLine().split(" ", QString::SkipEmptyParts);
-        QString firstWord = inStr.at(0);
-        QString secondWord;
-        (inStr.size() > 1) ? secondWord = inStr[1] : secondWord = "";
-        Command userIn(firstWord, secondWord);
-        finished = processCommand(userIn);
-    }
+    ui->mapBox->setText("[a]--[b]--[c]\n"
+                        "      |      \n"
+                        "[d]--[e]--[f]\n"
+                        "      |      \n"
+                        "[g]--[h]--[i]\n"
+                        " | \n"
+                        "[j]");
+}
+
+void ZorkCore::on_westButton_clicked()
+{
+    Command in("go", "west");
+    processCommand(in);
+}
+
+void ZorkCore::on_northButton_clicked()
+{
+    Command in("go", "north");
+    processCommand(in);
+}
+
+void ZorkCore::on_southButton_clicked()
+{
+    Command in("go", "south");
+    processCommand(in);
+}
+
+void ZorkCore::on_eastButton_clicked()
+{
+    Command in("go", "east");
+    processCommand(in);
+}
+
+void ZorkCore::on_tpButton_clicked()
+{
+    Command in("teleport", "");
+    processCommand(in);
+}
+
+void ZorkCore::on_inventoryButton_clicked()
+{
+
 }

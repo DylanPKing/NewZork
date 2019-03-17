@@ -2,7 +2,6 @@ QT += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++11 console
 CONFIG -= app_bundle
 
 # The following define makes your compiler emit warnings if you use
@@ -18,13 +17,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     Character.cpp \
-    ZorkCore.cpp \
     Command.cpp \
     Item.cpp \
     Location.cpp \
     main.cpp \
     Weapon.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    ZorkCore.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -39,12 +38,13 @@ DISTFILES += \
 
 HEADERS += \
     Character.h \
-    ZorkCore.h \
     Command.h \
     Item.h \
     Location.h \
     Weapon.h \
-    mainwindow.h
+    mainwindow.h \
+    ZorkCore.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    ZorkCore.ui
