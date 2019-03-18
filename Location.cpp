@@ -4,8 +4,8 @@
  * @brief Location::Location
  * @param name
  */
-Location::Location(QString name)
-    : name(name)
+Location::Location(QString name) :
+    name(name)
 {}
 
 /**

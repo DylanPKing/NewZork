@@ -8,8 +8,8 @@
  * @param atk
  * @param weight
  */
-Item::Item(QString name, QString description, int weight)
-    : name(name)
-    , description(description)
-    , weight(weight)
+Item::Item(QString name, QString description, int weight) :
+    name(name),
+    description(description),
+    weight(weight)
 {}
