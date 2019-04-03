@@ -11,40 +11,40 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Game</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(76, 76, 76);</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="2" column="3" rowspan="2">
-    <widget class="QPushButton" name="eastButton">
+   <item row="0" column="1" rowspan="2" colspan="5">
+    <widget class="QTextEdit" name="out">
+     <property name="font">
+      <font>
+       <family>Consolas</family>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
      <property name="styleSheet">
-      <string notr="true"/>
-     </property>
-     <property name="text">
-      <string>East</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="1" rowspan="2">
-    <widget class="QPushButton" name="westButton">
-     <property name="text">
-      <string>West</string>
+      <string notr="true">background-color: rgb(0, 0, 0);
+color: rgb(0, 255, 0);
+border: 2px solid gray;
+border-radius: 20px 30px;
+</string>
      </property>
     </widget>
    </item>
-   <item row="2" column="4" rowspan="2">
-    <widget class="QPushButton" name="tpButton">
+   <item row="4" column="6">
+    <widget class="QPushButton" name="inventoryBtn">
      <property name="styleSheet">
-      <string notr="true"/>
+      <string notr="true">background-color: rgb(8, 8, 8);
+color: rgb(241, 241, 241);
+font: 9pt &quot;MS Shell Dlg 2&quot;;
+border: 4px solid rgb(8, 8, 8);
+border-radius: 2px 2px;</string>
      </property>
      <property name="text">
-      <string>Teleport</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="2">
-    <widget class="QPushButton" name="northButton">
-     <property name="text">
-      <string>North</string>
+      <string>Show Inventory</string>
      </property>
     </widget>
    </item>
@@ -56,15 +56,14 @@
        <pointsize>8</pointsize>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(48, 48, 48);
+color: rgb(200, 200, 200);
+border: 2px solid gray;
+border-radius: 20px 30px;</string>
+     </property>
      <property name="readOnly">
       <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="2">
-    <widget class="QPushButton" name="southButton">
-     <property name="text">
-      <string>South</string>
      </property>
     </widget>
    </item>
@@ -83,41 +82,157 @@
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true"/>
+      <string notr="true">background-color: rgb(255, 252, 212);
+color: rgb(90, 91, 79);
+border: 1px solid #fff;
+border-radius: 10px 10px;</string>
      </property>
      <property name="readOnly">
       <bool>true</bool>
      </property>
     </widget>
    </item>
-   <item row="0" column="1" rowspan="2" colspan="5">
-    <widget class="QTextEdit" name="out">
-     <property name="font">
-      <font>
-       <family>Consolas</family>
-       <pointsize>14</pointsize>
-      </font>
+   <item row="6" column="2">
+    <widget class="QPushButton" name="southButton">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(190, 190, 190);
+color: rgb(53, 53, 53);
+border: 4px solid rgb(190, 190, 190);
+border-radius: 2px 2px;</string>
+     </property>
+     <property name="text">
+      <string>South</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string notr="true">directionButtons</string>
+     </attribute>
+    </widget>
+   </item>
+   <item row="5" column="2">
+    <widget class="QPushButton" name="northButton">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(190, 190, 190);
+color: rgb(53, 53, 53);
+border: 4px solid rgb(190, 190, 190);
+border-radius: 2px 2px;</string>
+     </property>
+     <property name="text">
+      <string>North</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string notr="true">directionButtons</string>
+     </attribute>
+    </widget>
+   </item>
+   <item row="5" column="3" rowspan="2">
+    <widget class="QPushButton" name="eastButton">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(190, 190, 190);
+color: rgb(53, 53, 53);
+border: 4px solid rgb(190, 190, 190);
+border-radius: 2px 2px;</string>
+     </property>
+     <property name="text">
+      <string>East</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string notr="true">directionButtons</string>
+     </attribute>
+    </widget>
+   </item>
+   <item row="5" column="1" rowspan="2">
+    <widget class="QPushButton" name="westButton">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(190, 190, 190);
+color: rgb(53, 53, 53);
+border: 4px solid rgb(190, 190, 190);
+border-radius: 2px 2px;</string>
+     </property>
+     <property name="text">
+      <string>West</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string notr="true">directionButtons</string>
+     </attribute>
+    </widget>
+   </item>
+   <item row="4" column="4">
+    <widget class="QPushButton" name="takeItemBtn">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(61, 139, 255);
+color: rgb(241, 241, 241);
+font: 9pt &quot;MS Shell Dlg 2&quot;;
+border: 4px solid rgb(61, 139, 255);
+border-radius: 2px 2px;</string>
+     </property>
+     <property name="text">
+      <string>Take Item</string>
      </property>
     </widget>
    </item>
-   <item row="2" column="6">
-    <widget class="QPushButton" name="inventoryButton">
+   <item row="4" column="5">
+    <widget class="QPushButton" name="dropItemBtn">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(23, 47, 153);
+color: rgb(241, 241, 241);
+font: 9pt &quot;MS Shell Dlg 2&quot;;
+border: 4px solid rgb(23, 47, 153);
+border-radius: 2px 2px;</string>
+     </property>
      <property name="text">
-      <string>Show Inventory and Equipped Items</string>
+      <string>Drop Item</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1" colspan="3">
+    <widget class="QLineEdit" name="itemEntry">
+     <property name="font">
+      <font>
+       <family>Consolas</family>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(72, 72, 72);
+color: rgb(255, 255, 255);
+border: 2px solid  rgb(255, 255, 255);
+border-radius: 2px 2px;</string>
+     </property>
+     <property name="placeholderText">
+      <string>Type an item here to take or drop</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="4" rowspan="2">
+    <widget class="QPushButton" name="tpButton">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(145, 0, 0);
+color: rgb(255, 255, 255);
+font: 75 10pt &quot;MS Shell Dlg 2&quot;;
+border: 3px solid rgb(145, 0, 0);
+border-radius: 3px 3px;</string>
+     </property>
+     <property name="text">
+      <string>Teleport</string>
      </property>
     </widget>
    </item>
   </layout>
-  <zorder>northButton</zorder>
   <zorder>eastButton</zorder>
   <zorder>westButton</zorder>
   <zorder>out</zorder>
-  <zorder>tpButton</zorder>
   <zorder>southButton</zorder>
   <zorder>charStats</zorder>
   <zorder>mapBox</zorder>
-  <zorder>inventoryButton</zorder>
+  <zorder>inventoryBtn</zorder>
+  <zorder>northButton</zorder>
+  <zorder>takeItemBtn</zorder>
+  <zorder>dropItemBtn</zorder>
+  <zorder>itemEntry</zorder>
+  <zorder>tpButton</zorder>
  </widget>
  <resources/>
  <connections/>
+ <buttongroups>
+  <buttongroup name="directionButtons"/>
+ </buttongroups>
 </ui>

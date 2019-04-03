@@ -11,15 +11,63 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Welcome</string>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true">background-color: rgb(76, 76, 76);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
+    <item row="3" column="2">
+     <widget class="QPushButton" name="playBtn">
+      <property name="maximumSize">
+       <size>
+        <width>442</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(200, 255, 190);
+font: 9pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(33, 33, 33);
+border: 3px solid rgb(200, 255, 190);
+border-radius: 3px 3px;</string>
+      </property>
+      <property name="text">
+       <string>Play</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <widget class="QLabel" name="title">
+      <property name="font">
+       <font>
+        <family>Vladimir Script</family>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(221, 226, 255);</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:36pt;&quot;&gt;Welcome to the&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:36pt;&quot;&gt;Saga of... Something..&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
     <item row="0" column="4" rowspan="7">
      <spacer name="verticalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="0" column="0" rowspan="7">
+     <spacer name="verticalSpacer">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
@@ -46,6 +94,13 @@
     </item>
     <item row="5" column="2">
      <widget class="QPushButton" name="quitBtn">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(163, 29, 29);
+font: 9pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(221, 221, 221);
+border: 3px solid rgb(163, 29, 29);
+border-radius: 3px 3px;</string>
+      </property>
       <property name="text">
        <string>Quit</string>
       </property>
@@ -63,38 +118,6 @@
        </size>
       </property>
      </spacer>
-    </item>
-    <item row="0" column="0" rowspan="7">
-     <spacer name="verticalSpacer">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="3" column="2">
-     <widget class="QPushButton" name="playBtn">
-      <property name="text">
-       <string>Play</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="2">
-     <widget class="QLabel" name="title">
-      <property name="font">
-       <font>
-        <family>Vladimir Script</family>
-       </font>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:36pt;&quot;&gt;Welcome to the&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:36pt;&quot;&gt;Saga of... Something..&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
     </item>
    </layout>
   </widget>

@@ -10,9 +10,9 @@ QVector <QString> Command::validCommandWords;
  * @param commandWord
  * @param secondWord
  */
-Command::Command(QString commandWord, QString secondWord)
-    : commandWord(commandWord)
-    , secondWord(secondWord)
+Command::Command(QString commandWord, QString secondWord) :
+    commandWord(commandWord),
+    secondWord(secondWord)
 {
     isThereCommandWords();
 }
