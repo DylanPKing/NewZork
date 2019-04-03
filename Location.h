@@ -21,6 +21,7 @@ public:
     Location(QString);
     inline QString getName() { return name; }
     QString getItemList();
+    const QVector <Item*> &itemsRef = items;
     QString getDescription();
     Location* getExit(QString);
     QString getExits();
@@ -28,6 +29,8 @@ public:
     void addItem(Item*);
     void removeItem(Item*);
     void addCharacter(Character);
+    void operator+(Item*);
+    void operator-(Item*);
 };
 
 #endif // LOCATION_H

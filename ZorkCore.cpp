@@ -2,21 +2,27 @@
 #include "ui_ZorkCore.h"
 #include "mainwindow.h"
 
+#define updateCharStats ui->charStats->setText(playerCharacter->showStatus())
+
 ZorkCore::ZorkCore(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ZorkCore),
-    playerCharacter("Player")
+    playerCharacter(new Character("Player"))
 {
     ui->setupUi(this);
     srand(time(nullptr));
     createLocations();
     showMap();
-    ui->charStats->setText(playerCharacter.showStatus());
+    updateCharStats;
+    inventoryWindow = new InventoryWindow();
+    connect(this, SIGNAL(winCondition()), this, SLOT(on_winCondition()));
+    connect(this, SIGNAL(loseCondition()), this, SLOT(on_loseCondition()));
 }
 
 ZorkCore::~ZorkCore()
 {
     delete ui;
+    delete inventoryWindow;
 }
 
 /**
@@ -24,7 +30,7 @@ ZorkCore::~ZorkCore()
  */
 void ZorkCore::teleport()
 {
-
+    ui->out->append("You are teleporting to a new room...\n");
     bool valid = false;
     while (!valid)
     {
@@ -38,34 +44,16 @@ void ZorkCore::teleport()
     }
 }
 
-/**
- * @brief ZorkCore::processCommand
- * @param in
- * @return
- */
-bool ZorkCore::processCommand(Command in)
+void ZorkCore::go(QString &dir)
 {
-    if (!in.isValidCommand())
-        ui->out->append("The hell are you trying to do?\n");
-    else if (in.commandWordRef.compare("info") == 0 && !in.hasSecondWord())
-        ui->out->append("Valid commands are:\n" + in.listValidCommands() + "\n");
-    else if (in.commandWordRef.compare("go") == 0 && in.hasSecondWord())
-    {
-        QString here = currentLoc->getName();
-        currentLoc = currentLoc->getExit(in.secondWordRef);
-        if (here.compare(currentLoc->getName()) == 0)
-            ui->out->append("You cant go that direction..\n");
-        else
-            ui->out->append(currentLoc->getDescription() + "\n");
-    }
-    else if (in.commandWordRef.compare("teleport") == 0 && !in.hasSecondWord())
-    {
-        ui->out->append("You are teleporting to a new room...\n");
-        teleport();
-    }
-    else if (in.commandWordRef.compare("quit") == 0 && !in.hasSecondWord())
-        return true;
-    return false;
+    QString here = currentLoc->getName();
+    currentLoc = currentLoc->getExit(dir);
+    if (here.compare(currentLoc->getName()) == 0)
+        ui->out->append("You cant go that direction..\n");
+    else
+        ui->out->append(currentLoc->getDescription() + "\n");
+    if (currentLoc->getName().compare("f") == 0)
+        emit loseCondition();
 }
 
 /**
@@ -108,7 +96,10 @@ void ZorkCore::createLocations()
     locations.push_back(iPtr);
     locations.push_back(jPtr);
 
-    ePtr->addItem(new Weapon("Sword", "A simple sword.", 15, 20, 1));
+    *ePtr + new Weapon("Sword", "A simple sword.", 15, 20, 1);
+    *bPtr + new Armour("Breastplate", "A sturdy breatplate", 30, 25);
+    *cPtr + new Armour("Helmet", "A metal helmet, fit for a knight", 20, 20);
+
 
     currentLoc = ePtr;
 }
@@ -134,35 +125,133 @@ void ZorkCore::showMap()
 
 void ZorkCore::on_westButton_clicked()
 {
-    Command in("go", "west");
-    processCommand(in);
+    QString dir = "West";
+    go(dir);
 }
 
 void ZorkCore::on_northButton_clicked()
 {
-    Command in("go", "north");
-    processCommand(in);
+    QString dir = "North";
+    go(dir);
 }
 
 void ZorkCore::on_southButton_clicked()
 {
-    Command in("go", "south");
-    processCommand(in);
+    QString dir = "South";
+    go(dir);
 }
 
 void ZorkCore::on_eastButton_clicked()
 {
-    Command in("go", "east");
-    processCommand(in);
+    QString dir = "East";
+    go(dir);
 }
 
 void ZorkCore::on_tpButton_clicked()
 {
-    Command in("teleport", "");
-    processCommand(in);
+    teleport();
 }
 
-void ZorkCore::on_inventoryButton_clicked()
+void ZorkCore::rebindBtns()
 {
+    connect(ui->westButton, SIGNAL(clicked()), this, SLOT(quit()));
+    connect(ui->northButton, SIGNAL(clicked()), this, SLOT(quit()));
+    connect(ui->southButton, SIGNAL(clicked()), this, SLOT(quit()));
+    connect(ui->eastButton, SIGNAL(clicked()), this, SLOT(quit()));
+    connect(ui->tpButton, SIGNAL(clicked()), this, SLOT(quit()));
+    connect(ui->dropItemBtn, SIGNAL(clicked()), this, SLOT(quit()));
+    connect(ui->takeItemBtn, SIGNAL(clicked()), this, SLOT(quit()));
+    connect(ui->inventoryBtn, SIGNAL(clicked()), this, SLOT(quit()));
+}
 
+void ZorkCore::on_winCondition()
+{
+    ui->out->append("Congratulations! You won! You did almost nothing! Press any button to quit.");
+    rebindBtns();
+}
+
+void ZorkCore::on_loseCondition()
+{
+    ui->out->append("Sorry! You lost! You did almost nothing! Press any button to quit.");
+    rebindBtns();
+}
+
+void ZorkCore::quit()
+{
+    close();
+}
+
+void ZorkCore::on_inventoryBtn_clicked()
+{
+    inventoryWindow->setText(*playerCharacter);
+    inventoryWindow->show();
+}
+
+bool ZorkCore::isItemLineEmpty()
+{
+    return ui->itemEntry->text().compare("") == 0;
+}
+
+void ZorkCore::takeIfExists(QString &itemToTake)
+{
+    auto i = currentLoc->itemsRef.begin();
+    auto j = currentLoc->itemsRef.end();
+    for (; i != j; ++i)
+    {
+        if ((*i)->getName().compare(itemToTake) == 0)
+        {
+            Item* itemPtr = *i;
+            playerCharacter->takeItem(itemPtr);
+            currentLoc->removeItem(itemPtr);
+            ui->out->append("You have taken the " + itemPtr->getName() + ".");
+            return;
+        }
+    }
+    ui->out->append("That item isn't here..");
+}
+
+void ZorkCore::giveIfExists(QString &itemToDrop)
+{
+    auto i = playerCharacter->inventoryRef.begin();
+    auto j = playerCharacter->inventoryRef.end();
+    for (; i != j; ++i)
+    {
+        if ((*i)->getName().compare(itemToDrop) == 0)
+        {
+            Item* itemPtr = *i;
+            playerCharacter->giveItem(itemPtr);
+            currentLoc->addItem(itemPtr);
+            ui->out->append("You have dropped the " + itemPtr->getName() + ".");
+            return;
+        }
+    }
+    ui->out->append("You don't have that item..");
+}
+
+void ZorkCore::on_takeItemBtn_clicked()
+{
+    if (!isItemLineEmpty())
+    {
+        QString itemToTake = ui->itemEntry->text();
+        takeIfExists(itemToTake);
+    }
+    updateCharStats;
+}
+
+void ZorkCore::on_dropItemBtn_clicked()
+{
+    if (!isItemLineEmpty())
+    {
+        QString itemToDrop = ui->itemEntry->text();
+        giveIfExists(itemToDrop);
+    }
+    updateCharStats;
+    checkWinCondition();
+}
+
+void ZorkCore::checkWinCondition()
+{
+    if (currentLoc->getName().compare("j") == 0 &&
+        currentLoc->itemsRef.size() == 3)
+        emit winCondition();
 }

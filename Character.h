@@ -25,11 +25,13 @@ public:
     Character(QString);
     Character(QString, float);
     Character(QString, float, int);
-    const QString nameRef = name;
+    const QString &nameRef = name;
     const float &hpRef = hp;
     const int &weightLimitRef = weightLimit;
     const int &currentWeightRef = currentWeight;
+    const QVector <Item*> &inventoryRef = inventory;
     int updateCurrentWeight(int);
+    void setHP(float hp);
     void updateWeightLimit(int);
     void takeItem(Item*);
     void giveItem(Item*);

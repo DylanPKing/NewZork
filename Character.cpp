@@ -61,6 +61,11 @@ Character::Character(QString name, float hp, int weightLimit) :
     isThereEquipAreas();
 }
 
+void Character::setHP(float hp)
+{
+    this->hp = hp;
+}
+
 /**
  * @brief Increases or decreases current weight of a character.
  *

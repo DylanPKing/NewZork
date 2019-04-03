@@ -52,7 +52,7 @@ Location* Location::getExit(QString direction)
 QString Location::getExits()
 {
     QString out = "";
-    for (QMap<QChar, Location*>::iterator i = exits.begin(); i != exits.end(); ++i)
+    for (auto i = exits.begin(); i != exits.end(); ++i)
         out += (*i)->getName() + (i != exits.end() - 1 ? ", " : "");
     return out;
 }
@@ -93,3 +93,12 @@ void Location::removeItem(Item *oldItemPtr)
     items.remove(items.indexOf(oldItemPtr));
 }
 
+void Location::operator+(Item* thing)
+{
+    addItem(thing);
+}
+
+void Location::operator-(Item* thing)
+{
+    removeItem(thing);
+}

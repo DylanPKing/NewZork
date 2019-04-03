@@ -23,7 +23,9 @@ SOURCES += \
     main.cpp \
     Weapon.cpp \
     mainwindow.cpp \
-    ZorkCore.cpp
+    ZorkCore.cpp \
+    inventorywindow.cpp \
+    armour.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -43,8 +45,11 @@ HEADERS += \
     Location.h \
     Weapon.h \
     mainwindow.h \
-    ZorkCore.h
+    ZorkCore.h \
+    inventorywindow.h \
+    armour.h
 
 FORMS += \
     mainwindow.ui \
-    ZorkCore.ui
+    ZorkCore.ui \
+    inventorywindow.ui
